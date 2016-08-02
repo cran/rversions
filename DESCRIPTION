@@ -1,8 +1,8 @@
 Package: rversions
 Title: Query 'R' Versions, Including 'r-release' and 'r-oldrel'
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(
-    person("Gabor", "Csardi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
     person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", role = "ctb"))
 Description: Query the main 'R' 'SVN' repository to find the
     versions 'r-release' and 'r-oldrel' refer to, and also all
@@ -10,11 +10,13 @@ Description: Query the main 'R' 'SVN' repository to find the
 License: MIT + file LICENSE
 URL: https://github.com/metacran/rversions
 BugReports: https://github.com/metacran/rversions/issues
-Imports: curl, xml2, utils
+Imports: curl, xml2 (>= 1.0.0), utils
+Encoding: UTF-8
+RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2015-07-13 00:49:49 UTC; gaborcsardi
-Author: Gabor Csardi [aut, cre],
+Packaged: 2016-08-02 07:56:18 UTC; gaborcsardi
+Author: Gábor Csárdi [aut, cre],
   Jeroen Ooms [ctb]
-Maintainer: Gabor Csardi <csardi.gabor@gmail.com>
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
-Date/Publication: 2015-07-13 03:50:31
+Date/Publication: 2016-08-02 13:05:29
