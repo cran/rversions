@@ -11,8 +11,8 @@ r_oldrel(dots = TRUE)
 number.}
 }
 \value{
-A one row data frame, with columns \sQuote{version} and
-  \sQuote{date}.
+A one row data frame, with columns \sQuote{version},
+\sQuote{date} and \sQuote{nickname}.
 }
 \description{
 R-oldrel is the latest version of the previous minor version.
@@ -21,4 +21,3 @@ We extract version numbers from the R SVN repository tags.
 \examples{
 r_oldrel()
 }
-

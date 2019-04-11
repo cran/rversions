@@ -11,8 +11,8 @@ r_versions(dots = TRUE)
 number.}
 }
 \value{
-A data frame with two chracter columns: \sQuote{version} and
-  \sQuote{date}.
+A data frame with three chracter columns: \sQuote{version},
+\sQuote{date} and \sQuote{nickname}.
 }
 \description{
 R version numbers consist of three numbers (since version 1.4.1):
@@ -24,4 +24,3 @@ We extract the version numbers from the tags in the SVN repository.
 \examples{
 r_versions()
 }
-

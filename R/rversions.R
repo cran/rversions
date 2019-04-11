@@ -8,8 +8,8 @@
 #'
 #' @param dots Whether to use dots instead of dashes in the version
 #'   number.
-#' @return A data frame with two chracter columns: \sQuote{version} and
-#'   \sQuote{date}.
+#' @return A data frame with three chracter columns: \sQuote{version},
+#'   \sQuote{date} and \sQuote{nickname}.
 #'
 #' @export
 #' @importFrom curl new_handle handle_setheaders curl_fetch_memory
@@ -18,38 +18,16 @@
 #' r_versions()
 
 r_versions <- function(dots = TRUE) {
-  
-  # issue http request to svn
-  h <- handle_setheaders(new_handle(customrequest = "PROPFIND"), Depth="1")
-  req <- curl_fetch_memory("http://svn.r-project.org/R/tags/", handle = h)
-  
-  # extract xml nodes
-  doc <- read_xml(rawToChar(req$content))
-  prop <- xml_find_all(doc, ".//D:propstat/D:prop", xml_ns(doc))
-  
-  # extract dates and tages
-  dates <- xml_text(xml_find_first(prop, ".//D:creationdate", xml_ns(doc)))
-  tags <- xml_text(xml_find_first(prop, ".//D:getetag", xml_ns(doc)))
-  tags <- sub("^.*/tags/R-([-0-9]+).*$", "\\1", tags)
-  
-  # filter out working branches
-  is_release <- grepl("^[0-9]+-[0-9]+(-[0-9]+|)$", tags)
-  tags <- tags[is_release]
-  dates <- dates[is_release]
-  
-  # use dots for versions
-  if (dots) tags <- gsub('-', '.', tags)
-  
-  # output structure
-  versions <- data.frame(
-    stringsAsFactors = FALSE,
-    version = tags,
-    date = dates
-  )
-  
-  # sort and return
-  df <- versions[order(package_version(tags)), ]
-  rownames(df) <- NULL
+  df <- r_versions_fetch()
+  dotver <- gsub('-', '.', df$version)
+  if (dots) df$version <- dotver
+
+  nicks <- cached_nicks()
+  nonick <- setdiff(dotver, names(nicks))
+  if (length(nonick)) nicks <- c(nicks, get_nicknames(nonick))
+
+  df$nickname <- rep(NA_character_, nrow(df))
+  df$nickname[match(names(nicks), dotver)] <- nicks
   df
 }
 
@@ -59,8 +37,8 @@ r_versions <- function(dots = TRUE) {
 #' not dates).
 #'
 #' @inheritParams r_versions
-#' @return A one row data frame, with columns \sQuote{version} and
-#'   \sQuote{date}.
+#' @return A one row data frame, with columns \sQuote{version},
+#'   \sQuote{date} and \sQuote{nickname}.
 #'
 #' @export
 #' @importFrom utils tail
@@ -78,8 +56,8 @@ r_release <- function(dots = TRUE) {
 #' We extract version numbers from the R SVN repository tags.
 #'
 #' @inheritParams r_versions
-#' @return A one row data frame, with columns \sQuote{version} and
-#'   \sQuote{date}.
+#' @return A one row data frame, with columns \sQuote{version},
+#'   \sQuote{date} and \sQuote{nickname}.
 #'
 #' @export
 #' @importFrom utils tail
@@ -98,4 +76,39 @@ r_oldrel <- function(dots = TRUE) {
 
   latest <- tail(major_minor, 1)
   tail(versions[ major_minor != latest, ], 1)
+}
+
+cache <- new.env(parent = emptyenv())
+r_versions_fetch <- function() {
+  if (is.null(cache$versions)) {
+    # issue http request to svn
+    h <- handle_setheaders(new_handle(customrequest = "PROPFIND"), Depth="1")
+    req <- curl_fetch_memory(r_svn_url, handle = h)
+
+    # extract xml nodes
+    doc <- read_xml(rawToChar(req$content))
+    prop <- xml_find_all(doc, ".//D:propstat/D:prop", xml_ns(doc))
+
+    # extract dates and tages
+    dates <- xml_text(xml_find_first(prop, ".//D:creationdate", xml_ns(doc)))
+    tags <- xml_text(xml_find_first(prop, ".//D:getetag", xml_ns(doc)))
+    tags <- sub("^.*/tags/R-([-0-9]+).*$", "\\1", tags)
+
+    # filter out working branches
+    is_release <- grepl("^[0-9]+-[0-9]+(-[0-9]+|)$", tags)
+    tags <- tags[is_release]
+    dates <- dates[is_release]
+
+    # output structure
+    versions <- data.frame(
+      stringsAsFactors = FALSE,
+      version = tags,
+      date = dates
+    )
+
+    df <- versions[order(package_version(tags)), ]
+    rownames(df) <- NULL
+    cache$versions <- df
+  }
+  cache$versions
 }
