@@ -25,6 +25,8 @@ r_versions <- function(dots = TRUE) {
   nicks <- cached_nicks()
   nonick <- setdiff(dotver, names(nicks))
   if (length(nonick)) nicks <- c(nicks, get_nicknames(nonick))
+  
+  df$date <- strptime(df$date, "%Y-%m-%dT%H:%M:%S", tz = "UTC")
 
   df$nickname <- rep(NA_character_, nrow(df))
   df$nickname[match(names(nicks), dotver)] <- nicks
@@ -83,7 +85,7 @@ r_versions_fetch <- function() {
   if (is.null(cache$versions)) {
     # issue http request to svn
     h <- handle_setheaders(new_handle(customrequest = "PROPFIND"), Depth="1")
-    req <- curl_fetch_memory(r_svn_url, handle = h)
+    req <- curl_fetch_memory(r_svn_url(), handle = h)
 
     # extract xml nodes
     doc <- read_xml(rawToChar(req$content))

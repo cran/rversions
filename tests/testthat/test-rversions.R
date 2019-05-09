@@ -8,7 +8,7 @@ test_that("versions", {
   expect_is(d, "data.frame")
   expect_equal(names(d), c("version", "date", "nickname"))
   expect_is(d$version, "character")
-  expect_is(d$date, "character")
+  expect_is(d$date, "POSIXt")
 })
 
 test_that("dots", {
@@ -34,7 +34,7 @@ test_that("on-demand nickname update", {
 
   ## We add foobar to make sure that mocking is in place
   nicks[length(nicks) - 3] <- "foobar"
-  d$nickname[nrow(d) - 3] <- "foobar"
+  d$nickname[length(nicks) - 3] <- "foobar"
 
   mockery::stub(r_versions, "cached_nicks", head(nicks, -2))
   expect_equal(d, r_versions())
