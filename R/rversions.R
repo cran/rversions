@@ -8,7 +8,7 @@
 #'
 #' @param dots Whether to use dots instead of dashes in the version
 #'   number.
-#' @return A data frame with three chracter columns: \sQuote{version},
+#' @return A data frame with three columns: \sQuote{version},
 #'   \sQuote{date} and \sQuote{nickname}.
 #'
 #' @export
@@ -25,8 +25,10 @@ r_versions <- function(dots = TRUE) {
   nicks <- cached_nicks()
   nonick <- setdiff(dotver, names(nicks))
   if (length(nonick)) nicks <- c(nicks, get_nicknames(nonick))
-  
-  df$date <- strptime(df$date, "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+
+  df$date <- as.POSIXct(
+    strptime(df$date, "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  )
 
   df$nickname <- rep(NA_character_, nrow(df))
   df$nickname[match(names(nicks), dotver)] <- nicks
