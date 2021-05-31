@@ -1,6 +1,6 @@
 Package: rversions
 Title: Query 'R' Versions, Including 'r-release' and 'r-oldrel'
-Version: 2.1.0
+Version: 2.1.1
 Authors@R: 
     c(person(given = "Gábor",
              family = "Csárdi",
@@ -22,12 +22,12 @@ BugReports: https://github.com/r-hub/rversions/issues
 Imports: curl, utils, xml2 (>= 1.0.0)
 Suggests: mockery, testthat
 Encoding: UTF-8
-RoxygenNote: 7.0.1
+RoxygenNote: 7.1.1.9001
 NeedsCompilation: no
-Packaged: 2021-05-24 14:37:30 UTC; gaborcsardi
+Packaged: 2021-05-31 08:36:02 UTC; gaborcsardi
 Author: Gábor Csárdi [aut, cre],
   Jeroen Ooms [ctb],
   R Consortium [fnd]
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-05-24 15:00:02 UTC
+Date/Publication: 2021-05-31 09:10:02 UTC
