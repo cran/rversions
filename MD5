@@ -1,7 +1,7 @@
-f0217f807d10027ce7ed051a0a0c26c3 *DESCRIPTION
+e0da9bd97901716f17f9f3d89142015f *DESCRIPTION
 5f280a0a0733885f0e433fa66e8ef4dc *LICENSE
 905e31df3a91be313b0cee59828d7205 *NAMESPACE
-c61300b7f0f0cd1a50cd32b366d1b3f4 *NEWS.md
+20ef51cabba22377a88ffcf1e43c864c *NEWS.md
 d9945a6edc9adc6c61734268bc1fecf2 *R/keep-head.R
 45960efa428593fd8be6ecac897e60ea *R/macos.R
 f7639646770a2111c423466649ddfcab *R/nicks.R
@@ -11,7 +11,7 @@ cd00ebd96acdeabb6c6222f8929a15b9 *R/tarball.R
 00f8802918d9ee3657619c090a9739cc *R/urls.R
 89b7c76c7768ea192490b731f39be557 *R/utils.R
 6d8cbe3d55caa0e97cce200bdb5f801a *R/win.R
-a91322ad43612eeb69b5bffdf1568c9e *README.md
+e870337e4a804a85a4a3d2809ad353e9 *README.md
 ad9e2a775fa25e5e4a81289e09e74809 *man/figures/logo.png
 62ab0457c47d84a96f6e5461da43fccf *man/r_oldrel.Rd
 9e9b8d4ca72fa57bd2e468ec32910568 *man/r_release.Rd
@@ -19,6 +19,6 @@ ad9e2a775fa25e5e4a81289e09e74809 *man/figures/logo.png
 a92cdcd85d72c74eef3a97e339cc532c *man/r_release_tarball.Rd
 9dd7ab1030c5795fe028cd13dd7aa10b *man/r_release_win.Rd
 ade59cd0eb015efd5a380a9932e8beb6 *man/r_versions.Rd
-e41887c424df0b9a3b71fc3d184c7d40 *man/rversions-package.Rd
+a778e70ae069c4fe7432f413e8c7fdc5 *man/rversions-package.Rd
 4e9b91bf15d69fb5012a1d99167eecd8 *tests/testthat.R
 b75d0a385bd6483778db8b1c13669fec *tests/testthat/test-rversions.R
